@@ -1,0 +1,39 @@
+service: py-teste-api-hello
+frameworkVersion: '2 || 3'
+
+provider:
+  region: 'us-east-1'
+  name: aws
+  runtime: python3.9
+  lambdaHashingVersion: '20201221'
+
+functions:
+  oi:
+    name: oi
+    handler: handler.oi
+    timeout: 10
+    memorySize: 512
+    events: 
+      - httpApi:
+          path: /oi
+          method: get
+
+  feriado:
+    handler: novembro.feriado
+    name: feriado
+    timeout: 5
+    memorySize: 128
+    events:
+      - httpApi:
+          path: /feriado
+          method: get
+
+  tchau:
+    handler: handler.tchau
+    name: ttchau
+    timeout: 7
+    memorySize: 256
+    events:
+      - httpApi:
+          path: /tchau
+          method: get
